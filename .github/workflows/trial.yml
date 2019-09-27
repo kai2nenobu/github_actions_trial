@@ -36,5 +36,5 @@ jobs:
         PATH=$(./jabba which 1.8)/bin:$PATH
         java -version
       env:
-        JABBA_VERSiON: 0.11.2
+        JABBA_VERSION: 0.11.2
       shell: 'bash --noprofile --norc -eux -o pipefail {0}'
