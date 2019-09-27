@@ -32,7 +32,7 @@ jobs:
         chmod +x jabba
         ./jabba --version
         ./jabba install "$JAVA_VERSION"
-        ls -AlhR "$(./jabba which "$JAVA_VERSION")
+        ls -AlhR "$(./jabba which "$JAVA_VERSION")"
         JAVA_HOME=$(./jabba which "$JAVA_VERSION")
         PATH=$(./jabba which "$JAVA_VERSION")/bin:$PATH
         which -a java || true
