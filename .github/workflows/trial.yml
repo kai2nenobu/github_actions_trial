@@ -31,10 +31,11 @@ jobs:
         curl -L -o jabba "$BINARY_URL"
         chmod +x jabba
         ./jabba --version
-        ./jabba install 1.8
-        JAVA_HOME=$(./jabba which 1.8)
-        PATH=$(./jabba which 1.8)/bin:$PATH
+        ./jabba install "$JAVA_VERION"
+        JAVA_HOME=$(./jabba which "$JAVA_VERION")
+        PATH=$(./jabba which "$JAVA_VERION")/bin:$PATH
         java -version
       env:
         JABBA_VERSION: 0.11.2
+        JAVA_VERSION: zulu@1.8
       shell: 'bash --noprofile --norc -eux -o pipefail {0}'
