@@ -32,10 +32,12 @@ jobs:
         chmod +x jabba
         ./jabba --version
         ./jabba install "$JAVA_VERSION"
+        ls -AlhR "$(./jabba which "$JAVA_VERSION")
         JAVA_HOME=$(./jabba which "$JAVA_VERSION")
         PATH=$(./jabba which "$JAVA_VERSION")/bin:$PATH
+        which java
         java -version
       env:
         JABBA_VERSION: 0.11.2
-        JAVA_VERSION: zulu@1.8
+        JAVA_VERSION: adopt@1.12
       shell: 'bash --noprofile --norc -eux -o pipefail {0}'
