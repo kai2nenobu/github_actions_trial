@@ -16,5 +16,25 @@ jobs:
       shell: bash
 
     - name: Run a one-line script
-      run: echo Hello, world! at $(date)
+      run: |
+        case "$RUNNER_OS" in
+          Linux)
+            BINARY_URL=https://github.com/shyiko/jabba/releases/download/${JABBA_VERSION}/jabba-${JABBA_VERSION}-linux-amd64
+            ;;
+          macOS)
+            BINARY_URL=https://github.com/shyiko/jabba/releases/download/${JABBA_VERSION}/jabba-${JABBA_VERSION}-darwin-amd64
+            ;;
+          Windows)
+            BINARY_URL=https://github.com/shyiko/jabba/releases/download/${JABBA_VERSION}/jabba-${JABBA_VERSION}-windows-amd64.exe
+            ;;
+        esac
+        curl -L -o jabba "$BINARY_URL"
+        chmod +x jabba
+        ./jabba --version
+        ./jabba install 1.8
+        JAVA_HOME=$(./jabba which 1.8)
+        PATH=$(./jabba which 1.8)/bin:$PATH
+        java -version
+      env:
+        JABBA_VERSiON: 0.11.2
       shell: bash
