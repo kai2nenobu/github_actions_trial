@@ -31,9 +31,9 @@ jobs:
         curl -L -o jabba "$BINARY_URL"
         chmod +x jabba
         ./jabba --version
-        ./jabba install "$JAVA_VERION"
-        JAVA_HOME=$(./jabba which "$JAVA_VERION")
-        PATH=$(./jabba which "$JAVA_VERION")/bin:$PATH
+        ./jabba install "$JAVA_VERSION"
+        JAVA_HOME=$(./jabba which "$JAVA_VERSION")
+        PATH=$(./jabba which "$JAVA_VERSION")/bin:$PATH
         java -version
       env:
         JABBA_VERSION: 0.11.2
