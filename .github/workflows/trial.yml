@@ -39,5 +39,5 @@ jobs:
         java -version
       env:
         JABBA_VERSION: 0.11.2
-        JAVA_VERSION: adopt@1.12.33-0
+        JAVA_VERSION: adopt@1.12.0-33
       shell: 'bash --noprofile --norc -eux -o pipefail {0}'
