@@ -28,8 +28,10 @@ jobs:
             BINARY_URL=https://github.com/shyiko/jabba/releases/download/${JABBA_VERSION}/jabba-${JABBA_VERSION}-windows-amd64.exe
             ;;
         esac
+        ## Download a OS-specific executable
         curl -L -o jabba "$BINARY_URL"
         chmod +x jabba
+        ## Install java
         ./jabba --version
         ./jabba install "$JAVA_VERSION"
         jabba_jdk_location=$(./jabba which --home "$JAVA_VERSION")
