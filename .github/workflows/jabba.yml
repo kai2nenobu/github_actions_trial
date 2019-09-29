@@ -1,7 +1,5 @@
-name: Trial
+name: Try to intall jaba by jabba
 on: [push]
-
-
 
 jobs:
   build:
