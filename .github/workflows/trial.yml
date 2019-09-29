@@ -35,7 +35,7 @@ jobs:
         jabba_jdk_location=$(./jabba which --home "$JAVA_VERSION")
         ## Update environment variable for subsequent steps
         echo ::set-env name=JAVA_HOME::$jabba_jdk_location
-        echo ::add-path::$jabba_jdk_localtion/bin
+        echo ::add-path::$jabba_jdk_location/bin
       env:
         JABBA_VERSION: 0.11.2
         JAVA_VERSION: adopt@1.12.0-2
