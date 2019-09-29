@@ -1,4 +1,4 @@
-name: Try to intall jaba by jabba
+name: Try to intall java by jabba
 on: [push]
 
 jobs:
