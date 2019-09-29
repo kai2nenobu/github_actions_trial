@@ -15,7 +15,7 @@ jobs:
       run: env | sort
       shell: bash
 
-    - name: Run a one-line script
+    - name: Install java by jabba
       run: |
         case "$RUNNER_OS" in
           Linux)
@@ -32,12 +32,14 @@ jobs:
         chmod +x jabba
         ./jabba --version
         ./jabba install "$JAVA_VERSION"
-        ls -AlhR "$(./jabba which --home "$JAVA_VERSION")"
         JAVA_HOME=$(./jabba which --home "$JAVA_VERSION")
         PATH=$(./jabba which --home "$JAVA_VERSION")/bin:$PATH
-        which -a java || true
-        java -version
       env:
         JABBA_VERSION: 0.11.2
         JAVA_VERSION: adopt@1.12.0-2
       shell: 'bash --noprofile --norc -eux -o pipefail {0}'
+    - name: Show environment again
+      run: env | sort
+      shell: bash
+    - name: Show java version
+      shell: java -version
