@@ -1,47 +1,11 @@
-name: Try to intall java by jabba
+name: Check environment
 on: [push]
 
 jobs:
   build:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macOS-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     steps:
     - name: Show environment
       run: env | sort
       shell: bash
-
-    - name: Install java by jabba
-      run: |
-        case "$RUNNER_OS" in
-          Linux)
-            BINARY_URL=https://github.com/shyiko/jabba/releases/download/${JABBA_VERSION}/jabba-${JABBA_VERSION}-linux-amd64
-            ;;
-          macOS)
-            BINARY_URL=https://github.com/shyiko/jabba/releases/download/${JABBA_VERSION}/jabba-${JABBA_VERSION}-darwin-amd64
-            ;;
-          Windows)
-            BINARY_URL=https://github.com/shyiko/jabba/releases/download/${JABBA_VERSION}/jabba-${JABBA_VERSION}-windows-amd64.exe
-            ;;
-        esac
-        ## Download a OS-specific executable
-        curl -L -o jabba "$BINARY_URL"
-        chmod +x jabba
-        ## Install java
-        ./jabba --version
-        ./jabba install "$JAVA_VERSION"
-        jabba_jdk_location=$(./jabba which --home "$JAVA_VERSION")
-        ## Update environment variable for subsequent steps
-        echo ::set-env name=JAVA_HOME::$jabba_jdk_location
-        echo ::add-path::$jabba_jdk_location/bin
-      env:
-        JABBA_VERSION: 0.11.2
-        JAVA_VERSION: adopt@1.12.0-2
-      shell: bash
-    - name: Show environment again
-      run: env | sort
-      shell: bash
-    - name: Show java version
-      run: java -version
