@@ -24,3 +24,9 @@ jobs:
     - name: Explicit powershell
       run: $PSVersionTable
       shell: powershell
+    - name: Command Prompt
+      run: ver
+      shell: cmd
+    - name: Git for Windows
+      run: env && cygpath -aw $SHELL
+      shell: bash
