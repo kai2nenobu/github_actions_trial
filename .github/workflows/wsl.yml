@@ -44,7 +44,7 @@ jobs:
             | Set-Content -Path 'C:\ProgramData\ssh\administrators_authorized_keys' -Encoding Byte
           # Repair permissions for authorized key file
           icacls 'C:\ProgramData\ssh\administrators_authorized_keys' /remove 'NT AUTHORITY\Authenticated Users'
-          icacls 'C:\ProgramData\ssh\administrators_authorized_keys' /inheritance:r
+          icacls 'C:\ProgramData\ssh\administrators_authorized_keys' /inheritance:d
           Restart-Service -Name sshd -Force
       - name: Connect to ssh server
         run: >-
