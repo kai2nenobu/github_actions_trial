@@ -18,3 +18,25 @@ jobs:
       - name: Show WSL environment
         shell: cmd
         run: wsl.exe --user root bash -c "env && cat /etc/sudoers && id wsl"
+  connect-by-ssh:
+    runs-on: windows-2019
+    defaults:
+      run:
+        shell: wsl-bash {0}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: Vampire/setup-wsl@v1
+        with:
+          distribution: Ubuntu-20.04
+          set-as-default: 'true'
+          wsl-shell-user: wsl
+      - name: Generate a ssh key pair in WSL
+        run: |
+          ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -N ""
+      - name: Setup Windows SSH Server
+        shell: cmd
+        run: |
+          choco install -y openssh --params "/SSHServerFeature"
+          wsl -- cat ~/.ssh/id_rsa.pub >> C:\ProgramData\ssh\administrators_authorized_keys
+      - name: Connect to ssh server
+        run: ssh -vvv runneradmin@localhost
