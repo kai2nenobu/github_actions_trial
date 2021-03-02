@@ -34,13 +34,18 @@ jobs:
         run: |
           ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -N ""
       - name: Setup Windows SSH Server
-        shell: cmd
+        shell: powershell
         run: |
+          # Install SSH Server
           choco install -y openssh --params "/SSHServerFeature"
-          wsl.exe -- cat /home/wsl/.ssh/id_rsa.pub >> C:\ProgramData\ssh\administrators_authorized_keys
-          icacls C:\ProgramData\ssh\administrators_authorized_keys /remove "NT AUTHORITY\Authenticated Users"
-          icacls C:\ProgramData\ssh\administrators_authorized_keys /inheritance:r
-          powershell -NoLogo -NoProfile -Command "Restart-Service -Name sshd -Force"
+          # Register a authorized key
+          (wsl.exe -- cat /home/wsl/.ssh/id_rsa.pub) -join "`n" `
+            | % { [Text.Encoding]::UTF8.GetBytes($_) } `
+            | Set-Content -Path 'C:\ProgramData\ssh\administrators_authorized_keys' -Encoding Byte
+          # Repair permissions for authorized key file
+          icacls 'C:\ProgramData\ssh\administrators_authorized_keys' /remove 'NT AUTHORITY\Authenticated Users'
+          icacls 'C:\ProgramData\ssh\administrators_authorized_keys' /inheritance:r
+          Restart-Service -Name sshd -Force
       - name: Connect to ssh server
         run: >-
           ssh runneradmin@localhost -vvv -o StrictHostKeyChecking=no
