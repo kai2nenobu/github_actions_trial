@@ -42,4 +42,7 @@ jobs:
           icacls C:\ProgramData\ssh\administrators_authorized_keys /inheritance:r
           powershell -NoLogo -NoProfile -Command "Restart-Service -Name sshd -Force"
       - name: Connect to ssh server
-        run: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -vvv runneradmin@localhost
+        run: >-
+          ssh runneradmin@localhost -vvv -o StrictHostKeyChecking=no
+            -o UserKnownHostsFile=/dev/null -o PreferredAuthentications=publickey
+            -- dir
