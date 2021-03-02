@@ -45,4 +45,5 @@ jobs:
         run: >-
           ssh runneradmin@localhost -vvv -o StrictHostKeyChecking=no
             -o UserKnownHostsFile=/dev/null -o PreferredAuthentications=publickey
+            -o PasswordAuthentication=no
             -- dir
