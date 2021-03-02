@@ -38,5 +38,8 @@ jobs:
         run: |
           choco install -y openssh --params "/SSHServerFeature"
           wsl.exe -- cat /home/wsl/.ssh/id_rsa.pub >> C:\ProgramData\ssh\administrators_authorized_keys
+          icacls C:\ProgramData\ssh\administrators_authorized_keys /remove "NT AUTHORITY\Authenticated Users"
+          icacls C:\ProgramData\ssh\administrators_authorized_keys /inheritance:r
+          powershell -NoLogo -NoProfile -Command "Restart-Service -Name sshd -Force"
       - name: Connect to ssh server
         run: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -vvv runneradmin@localhost
