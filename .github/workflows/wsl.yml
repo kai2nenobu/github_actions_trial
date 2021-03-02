@@ -1,4 +1,4 @@
-name: CI
+name: WSL Test
 
 on: [push, workflow_dispatch]
 
@@ -37,6 +37,6 @@ jobs:
         shell: cmd
         run: |
           choco install -y openssh --params "/SSHServerFeature"
-          wsl -- cat ~/.ssh/id_rsa.pub >> C:\ProgramData\ssh\administrators_authorized_keys
+          wsl.exe -- cat /home/wsl/.ssh/id_rsa.pub >> C:\ProgramData\ssh\administrators_authorized_keys
       - name: Connect to ssh server
-        run: ssh -vvv runneradmin@localhost
+        run: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -vvv runneradmin@localhost
