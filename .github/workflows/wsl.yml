@@ -18,6 +18,10 @@ jobs:
       - name: Show WSL environment
         shell: cmd
         run: wsl.exe --user root bash -c "env && cat /etc/sudoers && id wsl"
+      - name: Run commands in WSL
+        run: |
+          umask
+          ls -alh /mnt/c/Users/runneradmin/          
   connect-by-ssh:
     runs-on: windows-2019
     defaults:
