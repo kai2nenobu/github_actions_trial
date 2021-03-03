@@ -21,7 +21,7 @@ jobs:
       - name: Run commands in WSL
         run: |
           umask
-          ls -alh /mnt/c/Users/runneradmin/          
+          ls -alh /mnt/c/Users/runneradmin/Documents          
   connect-by-ssh:
     runs-on: windows-2019
     defaults:
