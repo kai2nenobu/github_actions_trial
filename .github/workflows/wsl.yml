@@ -15,16 +15,17 @@ jobs:
           distribution: Ubuntu-20.04
           set-as-default: 'true'
           wsl-shell-user: wsl
+      - name: List WSL distributions
+        shell: cmd
+        run: wsl -l -v
       - name: Show WSL environment
         run: |
           mount
-      - name: Change mount options
+      - name: Change mount options and restart
         shell: wsl-bash -u root {0}
         run: |
-          printf '[automount]\nenabled = true\noptions = "metadata,uid=1000,gid=1000,umask=22,fmask=11"\n' | tee /etc/wsl.conf
-          # Remount DrvFs
-          mount -o remount /mnt/c
-          mount -o remount /mnt/d
+          wsl -u root bash -c "printf '[automount]\nenabled = true\noptions = `"metadata,uid=1000,gid=1000,umask=22,fmask=11`"\n' | tee /etc/wsl.conf"
+          wsl --terminate Ubuntu-20.04
       - name: Show WSL environment again
         run: |
           mount
