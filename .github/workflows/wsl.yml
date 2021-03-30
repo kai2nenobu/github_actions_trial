@@ -17,16 +17,20 @@ jobs:
           wsl-shell-user: wsl
       - name: Run command by default user
         run: |
+          umask
           whoami
           id
           env
+          ls -alh .
           ls -alh ~
       - name: Run command by wsl user
         shell: wsl-bash -u wsl {0}
         run: |
+          umask
           whoami
           id
           env
+          ls -alh .
           ls -alh ~
   connect-by-ssh:
     runs-on: windows-2019
