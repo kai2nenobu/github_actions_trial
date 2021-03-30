@@ -15,7 +15,19 @@ jobs:
           distribution: Ubuntu-20.04
           set-as-default: 'true'
           wsl-shell-user: wsl
+      - name: Show WSL environment
+        run: |
+          mount
       - name: Run command by default user
+        run: |
+          umask
+          whoami
+          id
+          env
+          ls -alh .
+          ls -alh ~
+      - name: Run command by root user
+        shell: wsl-bash -u root {0}
         run: |
           umask
           whoami
