@@ -17,7 +17,7 @@ jobs:
           wsl-shell-user: wsl
       - name: List WSL distributions
         shell: cmd
-        run: wsl -l -v
+        run: wsl -l
       - name: Show WSL environment
         run: |
           mount
@@ -25,7 +25,7 @@ jobs:
         shell: wsl-bash -u root {0}
         run: |
           wsl -u root bash -c "printf '[automount]\nenabled = true\noptions = `"metadata,uid=1000,gid=1000,umask=22,fmask=11`"\n' | tee /etc/wsl.conf"
-          wsl --terminate Ubuntu-20.04
+          wslconfig /terminate Ubuntu-20.04
       - name: Show WSL environment again
         run: |
           mount
