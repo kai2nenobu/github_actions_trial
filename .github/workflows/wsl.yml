@@ -17,7 +17,7 @@ jobs:
           wsl-shell-user: wsl
       - name: List WSL distributions
         shell: cmd
-        run: wsl -l
+        run: wslconfig /list
       - name: Show WSL environment
         run: |
           mount
