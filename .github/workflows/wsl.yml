@@ -22,7 +22,7 @@ jobs:
         run: |
           mount
       - name: Change mount options and restart
-        shell: wsl-bash -u root {0}
+        shell: powershell
         run: |
           wsl -u root bash -c "printf '[automount]\nenabled = true\noptions = `"metadata,uid=1000,gid=1000,umask=22,fmask=11`"\n' | tee /etc/wsl.conf"
           wslconfig /terminate Ubuntu-20.04
