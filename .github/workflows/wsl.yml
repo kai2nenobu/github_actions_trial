@@ -15,13 +15,19 @@ jobs:
           distribution: Ubuntu-20.04
           set-as-default: 'true'
           wsl-shell-user: wsl
-      - name: Show WSL environment
-        shell: cmd
-        run: wsl.exe --user root bash -c "env && cat /etc/sudoers && id wsl"
-      - name: Run commands in WSL
+      - name: Run command by default user
         run: |
-          umask
-          ls -alh /mnt/c/Users/runneradmin/Documents          
+          whoami
+          id
+          env
+          ls -alh ~
+      - name: Run command by wsl user
+        shell: wsl-bash -u wsl {0}
+        run: |
+          whoami
+          id
+          env
+          ls -alh ~
   connect-by-ssh:
     runs-on: windows-2019
     defaults:
