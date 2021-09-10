@@ -4,7 +4,7 @@ on:
   workflow_dispatch: # Enable manual trigger
 
 jobs:
-  check-release:
+  create-issue:
     runs-on: ubuntu-20.04
     steps:
     - name: Create new issue
