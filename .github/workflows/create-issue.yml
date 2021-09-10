@@ -1,0 +1,14 @@
+name: Create a new issue
+
+on:
+  workflow_dispatch: # Enable manual trigger
+
+jobs:
+  check-release:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Create new issue
+      uses: imjohnbo/issue-bot@v3
+      with:
+        title: Hello, world
+        body: Test issue
