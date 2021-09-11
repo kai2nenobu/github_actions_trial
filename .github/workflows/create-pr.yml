@@ -1,0 +1,23 @@
+name: Check a new PR
+
+on:
+  workflow_dispatch: # Enable manual trigger
+
+jobs:
+  check-release:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v1
+    - name: Some modification
+      run: echo 'Sample File' > sample.txt
+    - name: Create a pull request
+      uses: peter-evans/create-pull-request@v3
+      with:
+        branch: sample_pull_request
+        delete-branch: true
+        commit-message: Some modofication
+        committer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+        reviewers: ${{ github.repository_owner }}
+        title: This is sample pull request by peter-evans/create-pull-request
+        body: |
+          [peter-evans/create-pull-request](https://github.com/marketplace/actions/create-pull-request) is very useful🎉
