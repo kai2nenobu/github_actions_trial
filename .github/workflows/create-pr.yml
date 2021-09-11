@@ -1,13 +1,13 @@
-name: Check a new PR
+name: Create a new PR
 
 on:
   workflow_dispatch: # Enable manual trigger
 
 jobs:
-  check-release:
+  create-pr:
     runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Some modification
       run: echo 'Sample File' > sample.txt
     - name: Create a pull request
