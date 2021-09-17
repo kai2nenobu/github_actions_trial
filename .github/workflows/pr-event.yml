@@ -1,0 +1,31 @@
+name: Release Python Installer
+
+on:
+  pull_request:
+    branches: [main]
+    types:
+    - opened
+    - reopened
+    - synchronize
+    - closed
+
+jobs:
+  info:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Show environment
+      run: env | grep -i github | sort | tee env.txt
+    - name: Show github context
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: echo "$GITHUB_CONTEXT" | jq 'del(.token)' | tee github_context.json
+    - name: Show event object
+      env:
+        EVENT_OBJECT: ${{ toJSON(github) }}
+      run: echo "$EVENT_OBJECT" | tee github_context.json
+    - uses: actions/upload-artifact@v2
+      with:
+        name: info
+        path: |
+          *.txt
+          *.json
