@@ -20,8 +20,8 @@ jobs:
       run: echo "$GITHUB_CONTEXT" | jq 'del(.token)' | tee github_context.json
     - name: Show event object
       env:
-        EVENT_OBJECT: ${{ toJSON(github) }}
-      run: echo "$EVENT_OBJECT" | tee github_context.json
+        EVENT_OBJECT: ${{ toJSON(github.event) }}
+      run: echo "$EVENT_OBJECT" | tee pull_request_event.json
     - uses: actions/upload-artifact@v2
       with:
         name: info
