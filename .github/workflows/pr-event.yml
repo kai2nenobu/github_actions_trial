@@ -1,8 +1,7 @@
-name: Release Python Installer
+name: Check a pull request event
 
 on:
   pull_request:
-    branches: [main]
     types:
     - opened
     - reopened
