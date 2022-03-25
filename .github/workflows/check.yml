@@ -30,3 +30,12 @@ jobs:
     - name: Git for Windows
       run: env && cygpath -aw $SHELL
       shell: bash
+  git-for-windows:
+    runs-on: windows-2019
+    steps:
+    - name: Cehck git for windows environment in details
+      run: |
+        bash --version
+        cygpath -aw /
+        which -a make
+        tty
