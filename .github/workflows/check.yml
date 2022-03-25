@@ -38,4 +38,4 @@ jobs:
         bash --version
         cygpath -aw /
         which -a make
-        tty
+        tty || true  # Check tty
