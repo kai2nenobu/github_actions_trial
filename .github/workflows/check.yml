@@ -9,6 +9,9 @@ jobs:
     - name: Show environment
       run: env | sort
       shell: bash
+    - name: Show a current user
+      run: id && cat /etc/passwd
+      shell: bash
     - name: Show github context
       run: echo '${{ toJson(github) }}'
       shell: bash
