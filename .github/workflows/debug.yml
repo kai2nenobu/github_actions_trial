@@ -1,0 +1,22 @@
+on:
+  workflow_dispatch:
+    inputs:
+      runner_image:
+        type: string
+        description: 'Runner image'     
+        required: false
+        default: ubuntu-latest
+      debug_enabled:
+        type: boolean
+        description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'     
+        required: false
+        default: false
+
+jobs:
+  build:
+    runs-on: ${{ inputs.runner_image }}
+    steps:
+      # Enable tmate debugging of manually-triggered workflows if the input option was provided
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        if: github.event_name == 'workflow_dispatch' && inputs.debug_enabled
