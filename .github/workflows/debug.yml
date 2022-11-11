@@ -1,3 +1,5 @@
+name: Debug by tmate
+
 on:
   workflow_dispatch:
     inputs:
