@@ -23,4 +23,6 @@ jobs:
         uses: mxschmitt/action-tmate@v3
         with:
           limit-access-to-actor: true
+        env:
+          GH_TOKEN: ${{ github.token }}
         if: github.event_name == 'workflow_dispatch' && inputs.debug_enabled
