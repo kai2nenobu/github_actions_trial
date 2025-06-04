@@ -6,9 +6,6 @@ jobs:
   # https://github.com/actions/runner-images/issues/9701
   add_component:
     runs-on: windows-2022
-    env:
-      VS_INSTALLER: 'C:\Program Files (x86)\Microsoft Visual Studio\Installer\vs_installer.exe'
-      VS_INSTALL_PATH: 'C:\Program Files\Microsoft Visual Studio\2022\Enterprise'
     steps:
       - name: List installed components
         run: (Get-VSSetupInstance).Packages | Format-Table -AutoSize
