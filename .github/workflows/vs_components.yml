@@ -10,16 +10,19 @@ jobs:
       VS_INSTALLER: 'C:\Program Files (x86)\Microsoft Visual Studio\Installer\vs_installer.exe'
       VS_INSTALL_PATH: 'C:\Program Files\Microsoft Visual Studio\2022\Enterprise'
     steps:
+      - name: List installed components
+        run: (Get-VSSetupInstance).Packages | Format-Table -AutoSize
       - name: Install components
         run: |
+          Set-Location "C:\Program Files (x86)\Microsoft Visual Studio\Installer\"
+          $InstallPath = "C:\Program Files\Microsoft Visual Studio\2022\Enterprise"
           $componentsToRemove= @(
-            "Microsoft.VisualStudio.Component.VC.14.39.17.9.ATL.ARM"
-            "Microsoft.VisualStudio.Component.VC.14.39.17.9.ATL.ARM.Spectre"
+            "Microsoft.VisualStudio.Component.VC.140"
           )
-          #[string]$workloadArgs = $componentsToRemove | ForEach-Object {" --add " +  $_}
-          #$Arguments = ('/c', "$env:VS_INSTALLER", 'modify', '--installPath', "`"$env:VS_INSTALL_PATH`"",$workloadArgs, '--quiet', '--norestart', '--nocache')
+          [string]$workloadArgs = $componentsToRemove | ForEach-Object {" --add " +  $_}
+          $Arguments = ('/c', "vs_installer.exe", 'modify', '--installPath', "`"$InstallPath`"",$workloadArgs, '--quiet', '--norestart', '--nocache')
           # should be run twice
-          #$process = Start-Process -FilePath cmd.exe -ArgumentList $Arguments -Wait -PassThru -WindowStyle Hidden
-          #$process = Start-Process -FilePath cmd.exe -ArgumentList $Arguments -Wait -PassThru -WindowStyle Hidden
-          &"$env:VS_INSTALLER" modify --installPath "$env:VS_INSTALL_PATH" --add "Microsoft.VisualStudio.Component.VC.14.39.17.9.ATL.ARM" --quiet --norestart --nocache
-        shell: powershell
+          $process = Start-Process -FilePath cmd.exe -ArgumentList $Arguments -Wait -PassThru -WindowStyle Hidden
+          $process = Start-Process -FilePath cmd.exe -ArgumentList $Arguments -Wait -PassThru -WindowStyle Hidden
+      - name: List installed components again
+        run: (Get-VSSetupInstance).Packages | Format-Table -AutoSize
