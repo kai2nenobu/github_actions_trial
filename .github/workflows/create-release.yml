@@ -1,0 +1,36 @@
+name: Create release
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (ex: 3.12.3)'
+        required: true
+        type: string
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    timeout-minutes: 5
+    steps:
+      - name: Create asset files
+        run: |
+          date --iso-8601=seconds > "${VERSION}.txt"
+          sha256sum release_date.txt > "${VERSION}.txt.sha256"
+        env:
+          VERSION: ${{ github.event.inputs.version }}
+      - name: Create tag and release
+        env:
+          RELEASE_TAG: ${{ github.event.inputs.version }}
+          RELEASE_TITLE: Release ${{ github.event.inputs.version }}
+          RELEASE_NOTES: |
+            ## 📝 Description
+
+            This is release for ${{ github.event.inputs.version }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: >-
+          gh release create "$RELEASE_TAG"
+            --title "$RELEASE_TITLE"
+            --notes "$RELEASE_NOTES"
+            *.txt *.txt.sha256
