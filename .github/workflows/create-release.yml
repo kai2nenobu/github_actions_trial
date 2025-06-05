@@ -32,8 +32,8 @@ jobs:
 
             This is release for ${{ github.event.inputs.version }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: >-
-          gh release create "$RELEASE_TAG"
-            --title "$RELEASE_TITLE"
-            --notes "$RELEASE_NOTES"
+        run: |
+          gh release create "$RELEASE_TAG" \
+            --title "$RELEASE_TITLE" \
+            --notes "$RELEASE_NOTES" \
             *.txt *.txt.sha256
