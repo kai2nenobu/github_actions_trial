@@ -17,7 +17,7 @@ jobs:
       - name: Create asset files
         run: |
           date --iso-8601=seconds > "${VERSION}.txt"
-          sha256sum release_date.txt > "${VERSION}.txt.sha256"
+          sha256sum "${VERSION}.txt" > "${VERSION}.txt.sha256"
         env:
           VERSION: ${{ github.event.inputs.version }}
       - name: Create tag and release
